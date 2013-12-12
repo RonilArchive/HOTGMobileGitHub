@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<title>HOTG Mobile</title>
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+<!--  <script src="js/cordova-2.7.0.js"></script> -->
+
+<script>
+
+function GetAreas(city)
+{
+
+	
+	if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+	  document.getElementById("AreaList").innerHTML = xmlhttp.responseText;
+	  
+	 $.mobile.navigate( '#AreaPage');
+	
+    }
+  }
+xmlhttp.open("POST","http://www.hotgmobile.healthonthego1503.appspot.com/City_location",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("City="+city);
+
+}	
+	
+
+
+function GetStreets(area)
+{
+
+	
+	if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+	  document.getElementById("StreetList").innerHTML = xmlhttp.responseText;
+	  
+	 $.mobile.navigate( '#StreetPage');
+	
+    }
+  }
+xmlhttp.open("POST","http://www.hotgmobile.healthonthego1503.appspot.com/Area_location",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("Area="+area);
+
+}	
+	
+
+</script>
+
+
+</head>
+<body>
+
+<div data-role="page" id="WelcomePage"> <!-- 'WelcomePage' Page start -->
+
+  <div data-role="header">
+    <h1>HOTG</h1>
+  </div>
+	
+  <div data-role="content">
+	<ul data-role="listview" data-inset="true">
+	<li><a href="#"> Login </a></li>
+	<li><a href="#"> Register </a></li>
+	<li><a href="#CityPage"> Guest User </a></li>
+	</ul>    
+  </div>
+  
+</div> 								<!--'WelcomePage' Page ends -->
+
+
+
+<div data-role="page" id="CityPage"> <!-- 'CityPage' Page start -->
+
+  <div data-role="header">
+    <h1>Select your city</h1>
+  </div>
+	
+  <div data-role="content">
+	<ul data-role="listview" data-inset="true">
+	<li onclick="GetAreas('Mumbai')"><a href="#"> Mumbai </a></li>
+	</ul>    
+  </div>
+  
+</div> 								<!--'CityPage' Page ends -->
+
+
+<div data-role="page" id="AreaPage"> <!-- 'AreaPage' Page start -->
+
+  <div data-role="header">
+    <h1>Select your Area</h1>
+  </div>
+	
+  <div data-role="content">
+	<ul data-role="listview" data-inset="true" id="AreaList">
+	<!--   <li><a href="#"> Andheri </a></li> -->
+	</ul>    
+  </div>
+  
+</div> 								<!--'AreaPage' Page ends -->
+
+
+<div data-role="page" id="StreetPage"> <!-- 'StreetPage' Page start -->
+
+  <div data-role="header">
+    <h1>Select your Street</h1>
+  </div>
+	
+  <div data-role="content">
+	<ul data-role="listview" data-inset="true" id="StreetList">
+	<!--   <li><a href="#"> Andheri </a></li> -->
+	</ul>    
+  </div>
+  
+</div> 								<!--'StreetPage' Page ends -->
+
+
+</body>
+</html>
